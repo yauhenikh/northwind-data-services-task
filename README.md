@@ -8,20 +8,53 @@
 * ASP.NET
 * WCF
 
-## Задача 1
+## Задача 1 - Northwind OData Service
 
-Изучить Northwind database.
+Цели:
+
+* Изучить модель базы данных Northwind.
+* Изучить основы языка запросов OData.
+* Научиться использовать язык запросов OData для доступа к данным Northwind OData Service.
+
+### Модель Northwind
+
+В качестве основной модели данных в задаче используется модель учебной базы данных Northwind. Схему базы данных Northwind можно найти в документе [Northwind Sample Database](https://www.zentut.com/wp-content/uploads/downloads/2013/06/Northwind-Sample-Database-Diagram.pdf). Связи между таблицами в диаграмме обозначены с помощью графической нотации "воронья лапка", объяснение которой дано в статье ["Data Modelling using ERD with Crow Foot Notation"](https://www.codeproject.com/Articles/878359/Data-Modelling-using-ERD-with-Crow-Foot-Notation).
+
+Выполнение:
+
+1. Используя диаграмму, выясните, какие данные хранят в себе сущности модели.
+2. Используя диаграмму, выясните, какая кардинальность задана для связей между таблицами PK Table (таблица, которая содержит первичный ключ сущности) и FK Table (таблица, содержащая внешний ключ сущности). Заполните таблицу:
+
+| PK Table      | FK Table      | Cardinality PK Table | Cardinality FK Table |
+| ------------- | ------------- | -------------------- | -------------------- |
+| shippers      | orders        | Zero-or-One          | One-or-Many          |
+| employees     | orders        |                      |                      |
+| employees     | employees     |                      |                      |
+| customers     | orders        |                      |                      |
+| orders        | orderdetails  |                      |                      |
+| products      | orderdetails  |                      |                      |
+| suppliers     | products      |                      |                      |
+| categories    | products      |                      |                      |
+
+| PK Table      | FK Table      | Relationship |
+| ------------- | ------------- | ------------ |
+| shippers      | orders        | One-to-Many  |
+| employees     | orders        | One-to-Many  |
+| employees     | employees     | One-to-Many  |
+| customers     | orders        | One-to-Many  |
+| orders        | orderdetails  | One-to-Many  |
+| products      | orderdetails  | One-to-Many  |
+| suppliers     | products      | One-to-Many  |
+| categories    | products      | One-to-Many  |
+
+
+### Northwind OData Service
+
+OData - это стандартизированный протокол для 
+
+Выполнение
 
 ### Northwind Data Model
-
-В качестве основной модели данных в задаче используется модель учебной базы данных Northwind. Основные таблицы базы данных Northwind представлены на схеме базы данных:
-
-[Northwind Database Schema](http://merc.tv/img/fig/Northwind_diagram.jpg)
-
-
-
-Схема базы данных Northwind ([система обозначений для связей](https://www.lucidchart.com/pages/ER-diagram-symbols-and-meaning))
-https://www.zentut.com/wp-content/uploads/downloads/2013/06/Northwind-Sample-Database-Diagram.pdf
 
 
 
@@ -79,3 +112,12 @@ https://www.hanselman.com/blog/ExploringServiceStacksSimpleAndFastWebServicesOnN
 
 
 https://dzone.com/articles/migrating-a-northwind-database-to-nosql-database
+
+Crow's Foot Notation
+https://www.codeproject.com/Articles/878359/Data-Modelling-using-ERD-with-Crow-Foot-Notation
+
+Основные таблицы базы данных Northwind представлены на схеме базы данных:
+[Northwind Database Schema](http://merc.tv/img/fig/Northwind_diagram.jpg)
+
+
+https://dzone.com/articles/collection-sql-server-sample-databases
