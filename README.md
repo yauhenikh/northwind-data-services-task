@@ -14,8 +14,10 @@
 Цели:
 
 * Изучить модель базы данных Northwind.
-* Изучить основы языка запросов OData.
+* Изучить основы протокола HTTP.
+* Научиться использовать Postman для выполнения запросов к внешним REST API.
 * Научиться использовать язык запросов OData для доступа к данным Northwind OData Service.
+* 
 
 
 ### Модель Northwind
@@ -42,7 +44,7 @@
 | categories    |                      | products             |                      |              |
 | region        |                      | territories          |                      |              |
 
-3. Выясните тип отношений между таблицами базы данных. Заполните колонку Relationship в таблице выше. Используйте статью [Many-to-Many Relationship in the Northwind database](http://blog.codeontime.com/2012/04/many-to-many-relationship-in-northwind.html), если необходимо.
+3. Выясните тип отношений между таблицами базы данных. Заполните колонку Relationship в таблице выше. Используйте статью [Many-to-Many Relationship in the Northwind database](http://blog.codeontime.com/2012/04/many-to-many-relationship-in-northwind.html), чтобы найти связи типа "многие-ко-многим".
 
 
 #### Дополнительные материалы
@@ -58,11 +60,12 @@
 
 #### Выполнение
 
-1. Изучите основы протокола HTTP - структуру, основные методы (GET, POST, PUT, DELETE), коды состояния, заголовки. Используйте статьи ["Обзор протокола HTTP"](https://developer.mozilla.org/ru/docs/Web/HTTP/Overview) и ["Простым языком об HTTP"](https://habr.com/ru/post/215117/) в качестве обучающего материала, и [статью в википедии](https://ru.wikipedia.org/wiki/HTTP#%D0%97%D0%B0%D0%B3%D0%BE%D0%BB%D0%BE%D0%B2%D0%BA%D0%B8) в качестве справочика.
+1. Изучите основы протокола HTTP - структуру, основные методы (GET, POST, PUT, DELETE), коды состояния, заголовки. Используйте статьи ["Обзор протокола HTTP"](https://developer.mozilla.org/ru/docs/Web/HTTP/Overview) и ["Простым языком об HTTP"](https://habr.com/ru/post/215117/) в качестве обучающего материала, и [статью в википедии](https://ru.wikipedia.org/wiki/HTTP) в качестве справочика.
 2. Postman - инструмент для работы с HTTP-сервисами и REST API.
-  * Установите [Postman](https://www.getpostman.com/downloads/).
-  * Освойте базовые сценарии работы c Postman ([Postman: от простого API-теста до конечного сценария](https://www.youtube.com/watch?v=hGmJMeE_ok0)).
-  * Используйте ["Learning OData on Postman"](https://www.odata.org/getting-started/learning-odata-on-postman/), чтобы добавить в Postman коллекцию URL и пройдите ["Basic Tutorial](https://www.odata.org/getting-started/basic-tutorial). 
+    * Установите [Postman](https://www.getpostman.com/downloads/).
+    * Освойте базовые сценарии работы c Postman. Можно использовать примеры из видео ("[Postman: от простого API-теста до конечного сценария"](https://www.youtube.com/watch?v=hGmJMeE_ok0)).
+    * Используйте руководство ["Learning OData on Postman"](https://www.odata.org/getting-started/learning-odata-on-postman/), чтобы добавить в Postman коллекцию URL.
+    * Пройдите ["Basic Tutorial](https://www.odata.org/getting-started/basic-tutorial).
 
 
 #### Дополнительные материалы
