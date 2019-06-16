@@ -66,6 +66,19 @@
     * Освойте базовые сценарии работы c Postman. Можно использовать примеры из видео ("[Postman: от простого API-теста до конечного сценария"](https://www.youtube.com/watch?v=hGmJMeE_ok0)).
     * Используйте руководство ["Learning OData on Postman"](https://www.odata.org/getting-started/learning-odata-on-postman/), чтобы добавить коллекцию URL OData-сервиса в Postman.
     * Пройдите ["Basic Tutorial](https://www.odata.org/getting-started/basic-tutorial).
+3. Создайте в Postman новую коллекцию с именем Northwind, в этой коллекции создайте такие запросы к Northwind OData Service, котоыре будут удовлетворять описанию из таблицы ниже. После проверки запроса, занесите необходимые параметры в таблицу:
+
+| Query Description                                                 | HTTP Verb | Url                        |
+| ----------------------------------------------------------------- | --------- | -------------------------- |
+| Get service metadata.                                             | GET       | /$metadata                 |
+| Get all customers.                                                | GET       | /Customers                 |
+| Get a customer with "ALFKI" id.                                   | GET       | /Customers('ALFKI')        |
+| Get all orders.                                                   | GET       | /Orders                    |
+| Get an order with "10248" id.                                     | GET       | /Orders(10248)             |
+| Get all orders for a customer with "ANATR" id.                    | GET       | /Customers('ANATR')/Orders |
+| Get a customer for an order with "10248" id.                      | GET       | /Orders(10248)/Customer    |
+
+TODO: Add more queries here or use Postman collection?
 
 
 #### Дополнительные материалы
@@ -73,9 +86,13 @@
 * OData REST API — мелкие хитрости ([часть 1](https://habr.com/ru/company/databoom/blog/262937/), [часть 2](https://habr.com/ru/company/databoom/blog/263167/), [часть 3](https://habr.com/ru/company/databoom/blog/263435/))
 
 
-### Northwind Data Model
+### WCF Client
 
 
+### REST API
+
+https://www.restapitutorial.com/index.html
+https://restfulapi.net/
 
 
 ### Northwind Data Service
@@ -116,11 +133,6 @@ https://services.odata.org/V2/Northwind/Northwind.svc/Customers('ALFKI')/Orders
 
 http://www.wilsonmar.com/northwind.htm
 
-* [Схема базы данных Northwind](https://www.zentut.com/wp-content/uploads/downloads/2013/06/Northwind-Sample-Database-Diagram.pdf) ()
-
-Схема базы данных Northwind ([в диаграмме использована система обозначений "воронья лапка"](https://www.codeproject.com/Articles/878359/Data-Modelling-using-ERD-with-Crow-Foot-Notation))
-
-
 
 * [Northwind and pubs sample databases for Microsoft SQL Server](https://github.com/microsoft/sql-server-samples/tree/master/samples/databases/northwind-pubs)
 * [Database agnostic DB Script to create Northwind Data Model](https://github.com/mrin9/northwind)
@@ -131,12 +143,6 @@ https://www.hanselman.com/blog/ExploringServiceStacksSimpleAndFastWebServicesOnN
 
 
 https://dzone.com/articles/migrating-a-northwind-database-to-nosql-database
-
-Crow's Foot Notation
-https://www.codeproject.com/Articles/878359/Data-Modelling-using-ERD-with-Crow-Foot-Notation
-
-Основные таблицы базы данных Northwind представлены на схеме базы данных:
-[Northwind Database Schema](http://merc.tv/img/fig/Northwind_diagram.jpg)
 
 
 https://dzone.com/articles/collection-sql-server-sample-databases
