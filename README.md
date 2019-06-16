@@ -61,10 +61,10 @@
 #### Выполнение
 
 1. Изучите основы протокола HTTP - структуру, основные методы (GET, POST, PUT, DELETE), коды состояния, заголовки. Используйте статьи ["Обзор протокола HTTP"](https://developer.mozilla.org/ru/docs/Web/HTTP/Overview) и ["Простым языком об HTTP"](https://habr.com/ru/post/215117/) в качестве обучающего материала, и [статью в википедии](https://ru.wikipedia.org/wiki/HTTP) в качестве справочика.
-2. Postman - инструмент для работы с HTTP-сервисами и REST API.
+2. Научитесь использовать Postman, инструмент для работы с HTTP-сервисами и REST API.
     * Установите [Postman](https://www.getpostman.com/downloads/).
     * Освойте базовые сценарии работы c Postman. Можно использовать примеры из видео ("[Postman: от простого API-теста до конечного сценария"](https://www.youtube.com/watch?v=hGmJMeE_ok0)).
-    * Используйте руководство ["Learning OData on Postman"](https://www.odata.org/getting-started/learning-odata-on-postman/), чтобы добавить в Postman коллекцию URL.
+    * Используйте руководство ["Learning OData on Postman"](https://www.odata.org/getting-started/learning-odata-on-postman/), чтобы добавить коллекцию URL OData-сервиса в Postman.
     * Пройдите ["Basic Tutorial](https://www.odata.org/getting-started/basic-tutorial).
 
 
@@ -148,3 +148,10 @@ https://www.zentut.com/sql-tutorial/%20-
 
 * Гудов, Завозкин, Пфайф. Учебное пособие ["Базы данных"](http://unesco.kemsu.ru/study_work/method/DB/book/index.html)
 * Сабитов, Пирогов. Учебный курс ["Введение в СУБД"](https://cmd.inp.nsk.su/~pirogov/DB/slides)
+
+
+OLAP
+http://lib.kstu.kz:8300/tb/books/2016/IVS/Sistemy%20avtomatizirovannyh%20eksperimentov/%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0/kontr2.htm
+
+Trader, powerapps
+https://powerapps.microsoft.com/en-us/blog/northwind-traders-relational-data-sample/
