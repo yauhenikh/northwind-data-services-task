@@ -1,2 +1,8 @@
-# northwind-data-services-task
-Sample client-server architecture task for .NET developers that users Northwind data model.
+# Northwind Data Services
+
+![Overview](images/northwind-overview.png)
+
+Обучающая задача по разработке веб-приложений, в которых используется клиент-серверное взаимодействие с внешней информационной системой через внешнее API этой системя для управления внутренними сущностями этой системы. В качестве модели данных используется Northwind.
+
+## Задача 1
+
