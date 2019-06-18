@@ -124,7 +124,7 @@ Visual Studio имеет функциональность [Add Service Reference
 edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0"
 ```
 
-3. Используйте утилиту [DataSvcUtil](https://docs.microsoft.com/en-us/dotnet/framework/data/wcf/wcf-data-service-client-utility-datasvcutil-exe) из пакета .NET Framework, чтобы [сгенерировать прокси-классы](https://docs.microsoft.com/en-us/dotnet/framework/data/wcf/how-to-manually-generate-client-data-service-classes-wcf-data-services) для сущностей сервиса.
+3. Используйте утилиту [DataSvcUtil](https://docs.microsoft.com/en-us/dotnet/framework/data/wcf/wcf-data-service-client-utility-datasvcutil-exe) из пакета .NET Framework, чтобы [сгенерировать прокси-классы](https://docs.microsoft.com/en-us/dotnet/framework/data/wcf/how-to-manually-generate-client-data-service-classes-wcf-data-services) для сущностей сервиса:
 
 ```
 "%windir%\Microsoft.NET\Framework\v3.5\DataSvcUtil.exe" /dataservicecollection /in:northwind-data-service.edmx /out:NorthwindDataService3.cs
@@ -140,10 +140,10 @@ edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0"
 
 Используйте утилиту DataSvcUtil снова, но на этот раз укажите номер версии 2.0. Какая возникла ошибка?
 
-Несмотря на то, что сервис Northwind OData реализует версию протокола 3.0, он отдает метаданные в формате версии 1.0, поэтому потребовалась замена версии в пункте 2.
+(Несмотря на то, что сервис Northwind OData реализует версию протокола 3.0, он отдает метаданные в формате версии 1.0, поэтому потребовалась замена версии в пункте 2.)
 
-5. Установите [WCF Data Services 5.6.3](https://www.microsoft.com/en-us/download/details.aspx?id=45308), найдите DataSvcUtil на диске (C:\Program Files (x86)\Microsoft WCF Data Services). Узнайте, какие версии поддерживает эта версия утилиты.
-6. Используйте DataSvcUtil версии 5.6.3 с указанием версии 3.0, на диске должен появиться файл _NorthwindDataService.cs_.
+5. Установите [WCF Data Services 5.6.3](https://www.microsoft.com/en-us/download/details.aspx?id=45308), найдите DataSvcUtil на диске (C:\Program Files (x86)\Microsoft WCF Data Services). Узнайте, какие версии формата метаданных поддерживает эта версия утилиты.
+6. Используйте DataSvcUtil версии 5.6.3 с указанием версии метаданных 3.0. После этого на диске должен появиться файл _NorthwindDataService.cs_.
 7. Создайте клиента для сервиса для приложения .NET Framework.
     * Создайте консольное приложение .NET Framework.
     * Скопируйте файл _NorthwindDataService.cs_ в папку проекта и добавьте его в проект.
@@ -170,7 +170,59 @@ Console.WriteLine("{0} customers in the service found.", customers.Length);
 Базовый клиент готов.
 
 
+#### Создание клиента сервиса OData v3 для приложения .NET Core
+
+Прокси-классы, которые генерирует утилита DataSvcUtil, годятся и для приложений .NET Core.
+
+1. Создайте консольное приложение .NET Core.
+2. Скопируйте файл _NorthwindDataService.cs_ в папку проекта, файл в Solution Explorer в Visual Studio появится автоматически.
+3. Добавьте сборки версии 5.6.3 из папки ".NETPortable" (не .NETFramework):
+    * Microsoft.Data.Edm.dll
+    * Microsoft.Data.OData.dll
+    * Microsoft.Data.Services.Client.dll
+4. Добавьте код предыдущего приложения, соберите проект, запустите приложение. Какая возникла ошибка?
+5. Примените [подхода APM](https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/asynchronous-programming-model-apm), чтобы сделать вызов к сервису асинхронным:
+
+```cs
+NorthwindModel.NorthwindEntities entities = new NorthwindModel.NorthwindEntities(new Uri("https://services.odata.org/V3/Northwind/Northwind.svc"));
+IAsyncResult asyncResult;
+asyncResult = entities.Customers.BeginExecute((ar) =>
+{
+	var customers = entities.Customers.EndExecute(ar).ToArray();
+	Console.WriteLine("{0} customers in the service found.", customers.Length);
+}, null);
+WaitHandle.WaitAny(new[] { asyncResult.AsyncWaitHandle });
+Console.ReadLine();
+```
+
+Запустите приложение.
+
+6. Удалите из проекта сборки версии 5.6.3, которые вы добавили в проект в шаге 3.
+7. Установите nuget-пакет [Microsoft.Data.Services.Client](https://www.nuget.org/packages/Microsoft.Data.Services.Client/). Пакет _Microsoft.Data.Services.Client_ является основным для создания клиентов к сервисам OData в .NET Core. Можно не устанавливать пакет _WCF Data Services_, вместо этого в приложениях .NET Core следует использовать nuget-пакет _Microsoft.Data.Services.Client_. Соберите проект и запустите приложение.
+8. Использование APM подхода при написании асинхронного кода усложняет структуру кода, делает код запутанным. Вместо подхода APM можно использовать подход [TAP](https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap), который [уменьшает количество кода и упрощает его структуру](http://jqyblogger.blogspot.com/2013/11/linq-query-error-message-on-windows.html). :
+
+```cs
+NorthwindModel.NorthwindEntities entities = new NorthwindModel.NorthwindEntities(new Uri("https://services.odata.org/V3/Northwind/Northwind.svc"));
+var taskFactory = new TaskFactory<IEnumerable<NorthwindModel.Customer>>();
+var customers = (await taskFactory.FromAsync(entities.Customers.BeginExecute(null, null), iar => entities.Customers.EndExecute(iar))).ToArray();
+Console.WriteLine("{0} customers in the service found.", customers.Length);
+Console.ReadLine();
+```
+
+9. Для того, чтобы вызывать асинхронные методы, которые помечены модификатором async, метод _Main_ тоже должен быть помечен модификатором async. Второе требование - метод _Main_ должен возвращать _Task_. Перепишите код и соберите проект.
+
+```cs
+static async Task Main(string[] args)
+```
+
+10. [Возможность помечать метод _Main_ модификатором async](https://blogs.msdn.microsoft.com/mazhou/2017/05/30/c-7-series-part-2-async-main/) появилась в C# только в версии 7.1. В случае ошибок компиляции ("Program does not contain a static 'Main' method suitable for an entry point"), [измените номер версии языка на 7.1 или выше](https://dailydotnettips.com/choosing-the-c-language-latest-version-minor-release-in-visual-studio-2017/). Соберите проект и запустите приложение.
+
+Базовый клиент готов.
+
+
 #### Создание клиента сервиса OData v4 для приложения .NET Core
+
+TODO
 
 
 ### REST API
