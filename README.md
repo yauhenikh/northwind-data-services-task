@@ -226,6 +226,61 @@ static async Task Main(string[] args)
 Базовый клиент готов.
 
 
+#### Утилизация потоков в асинхронной модели
+
+Перед выполнением прочтите и выполните примеры:
+
+* [Debug multithreaded applications in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/debugger/debug-multithreaded-applications-in-visual-studio)
+* [Get started debugging multithreaded applications](https://docs.microsoft.com/en-us/visualstudio/debugger/get-started-debugging-multithreaded-apps)
+* [Tools to debug threads and processes in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/debugger/debug-threads-and-processes)
+* [View threads in the Visual Studio debugger by using the Threads window](https://docs.microsoft.com/en-us/visualstudio/debugger/walkthrough-debugging-a-multithreaded-application)
+* [Walkthrough: Debug a multithreaded app using the Threads window](https://docs.microsoft.com/en-us/visualstudio/debugger/how-to-use-the-threads-window)
+
+1. Примените подход APM к коду клиента и расставьте брейкпоинты, как указано в коде:
+
+```cs
+NorthwindModel.NorthwindEntities entities = new NorthwindModel.NorthwindEntities(new Uri("https://services.odata.org/V3/Northwind/Northwind.svc"));
+IAsyncResult asyncResult;
+asyncResult = entities.Customers.BeginExecute((ar) => // breakpoint #1.1
+{
+	var customers = entities.Customers.EndExecute(ar).ToArray(); // breakpoint #1.2
+	Console.WriteLine("{0} customers in the service found.", customers.Length);
+}, null);
+WaitHandle.WaitAny(new[] { asyncResult.AsyncWaitHandle });
+Console.ReadLine(); // breakpoint #1.3
+```
+
+Запустите приложение и, используя окно _Threads_, запишите параметры ID, Managed ID и Name для текущего потока в каждой точке останова.
+
+2. Примените подход TAP к коду клиента и расставьте брейкпоинты, как указано в коде:
+
+```cs
+NorthwindModel.NorthwindEntities entities = new NorthwindModel.NorthwindEntities(new Uri("https://services.odata.org/V3/Northwind/Northwind.svc"));
+var taskFactory = new TaskFactory<IEnumerable<NorthwindModel.Customer>>();
+var customers = (await taskFactory.FromAsync(entities.Customers.BeginExecute(null, null), (iar) => // breakpoint #2.1
+{
+	entities.Customers.EndExecute(iar); // breakpoint #2.2
+})).ToArray();
+Console.WriteLine("{0} customers in the service found.", customers.Length);
+Console.ReadLine(); // breakpoint #2.3
+```
+
+Запустите приложение и, используя окно _Threads_, запишите параметры ID, Managed ID и Name для текущего потока в каждой точке останова.
+
+3. Заполните таблицу:
+
+| Breakpoint | Thread I   | Thread MID | Thread Name |
+| ---------- | ---------- | ---------- | ----------- |
+| #1.1       |            |            |             |
+| #1.2       |            |            |             |
+| #1.3       |            |            |             |
+| #2.1       |            |            |             |
+| #2.2       |            |            |             |
+| #2.3       |            |            |             |
+
+В чем разница между #1.3 и #2.3?
+
+
 #### Создание клиента сервиса OData v4 для приложения .NET Core
 
 TODO
