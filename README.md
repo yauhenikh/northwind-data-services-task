@@ -236,6 +236,8 @@ static async Task Main(string[] args)
   * [View threads in the Visual Studio debugger by using the Threads window](https://docs.microsoft.com/en-us/visualstudio/debugger/walkthrough-debugging-a-multithreaded-application)
   * [Walkthrough: Debug a multithreaded app using the Threads window](https://docs.microsoft.com/en-us/visualstudio/debugger/how-to-use-the-threads-window)
 
+Выполнение:
+
 1. Примените подход APM к коду клиента и расставьте брейкпоинты, как указано в коде:
 
 ```cs
