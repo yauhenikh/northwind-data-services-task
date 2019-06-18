@@ -186,8 +186,8 @@ Console.WriteLine("{0} customers in the service found.", customers.Length);
     * Microsoft.Data.Edm.dll
     * Microsoft.Data.OData.dll
     * Microsoft.Data.Services.Client.dll
-4. Добавьте код предыдущего приложения, соберите проект, запустите приложение. Какая возникла ошибка?
-5. Примените [подхода APM](https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/asynchronous-programming-model-apm), чтобы сделать вызов к сервису асинхронным:
+4. Добавьте код предыдущего приложения, соберите проект, запустите приложение. Какая возникла ошибка и почему?
+5. Примените [подход APM](https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/asynchronous-programming-model-apm), чтобы сделать вызов к сервису асинхронным:
 
 ```cs
 NorthwindModel.NorthwindEntities entities = new NorthwindModel.NorthwindEntities(new Uri("https://services.odata.org/V3/Northwind/Northwind.svc"));
@@ -203,8 +203,8 @@ Console.ReadLine();
 
 Запустите приложение.
 
-6. Удалите из проекта сборки версии 5.6.3, которые вы добавили в проект в шаге 3.
-7. Установите nuget-пакет [Microsoft.Data.Services.Client](https://www.nuget.org/packages/Microsoft.Data.Services.Client/). Пакет _Microsoft.Data.Services.Client_ является основным для создания клиентов к сервисам OData в .NET Core. Можно не устанавливать пакет _WCF Data Services_, вместо этого в приложениях .NET Core следует использовать nuget-пакет _Microsoft.Data.Services.Client_. Соберите проект и запустите приложение.
+6. Удалите из проекта сборки версии 5.6.3, которые были добавлены в шаге 3.
+7. Установите nuget-пакет [Microsoft.Data.Services.Client](https://www.nuget.org/packages/Microsoft.Data.Services.Client/). Пакет _Microsoft.Data.Services.Client_ является основным для создания клиентов к сервисам OData в .NET Core. Можно не устанавливать пакет _WCF Data Services_, вместо него в приложениях .NET Core следует использовать nuget-пакет _Microsoft.Data.Services.Client_. Соберите проект и запустите приложение.
 8. Использование APM подхода при написании асинхронного кода усложняет структуру кода, делает код запутанным. Вместо подхода APM можно использовать подход [TAP](https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap), который [уменьшает количество кода и упрощает его структуру](http://jqyblogger.blogspot.com/2013/11/linq-query-error-message-on-windows.html). :
 
 ```cs
