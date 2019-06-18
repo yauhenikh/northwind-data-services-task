@@ -215,13 +215,13 @@ Console.WriteLine("{0} customers in the service found.", customers.Length);
 Console.ReadLine();
 ```
 
-9. Для того, чтобы вызывать асинхронные методы, которые помечены модификатором async, метод _Main_ тоже должен быть помечен модификатором async. Второе требование - метод _Main_ должен возвращать _Task_. Перепишите код и соберите проект.
+9. Для того, чтобы вызывать асинхронные методы, которые помечены модификатором async, метод _Main_ тоже должен быть помечен модификатором async. Второе требование - метод _Main_ должен возвращать _Task_. Перепишите код как показано ниже, соберите проект.
 
 ```cs
 static async Task Main(string[] args)
 ```
 
-10. [Возможность помечать метод _Main_ модификатором async](https://blogs.msdn.microsoft.com/mazhou/2017/05/30/c-7-series-part-2-async-main/) появилась в C# только в версии 7.1. В случае ошибок компиляции ("Program does not contain a static 'Main' method suitable for an entry point"), [измените номер версии языка на 7.1 или выше](https://dailydotnettips.com/choosing-the-c-language-latest-version-minor-release-in-visual-studio-2017/). Соберите проект и запустите приложение.
+10. [Возможность помечать метод _Main_ модификатором async](https://blogs.msdn.microsoft.com/mazhou/2017/05/30/c-7-series-part-2-async-main/) появилась в C# только в версии 7.1. В случае ошибки компиляции ("Program does not contain a static 'Main' method suitable for an entry point"), [измените номер версии языка на 7.1 или выше](https://dailydotnettips.com/choosing-the-c-language-latest-version-minor-release-in-visual-studio-2017/). Соберите проект, запустите приложение.
 
 Базовый клиент готов.
 
