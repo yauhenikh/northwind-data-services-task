@@ -124,7 +124,7 @@ Visual Studio имеет функциональность [Add Service Reference
 edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0"
 ```
 
-3. Используйте утилиту [DataSvcUtil](https://docs.microsoft.com/en-us/dotnet/framework/data/wcf/wcf-data-service-client-utility-datasvcutil-exe), чтобы [сгенерировать прокси-классы](https://docs.microsoft.com/en-us/dotnet/framework/data/wcf/how-to-manually-generate-client-data-service-classes-wcf-data-services) для сущностей сервиса.
+3. Используйте утилиту [DataSvcUtil](https://docs.microsoft.com/en-us/dotnet/framework/data/wcf/wcf-data-service-client-utility-datasvcutil-exe) из пакета .NET Framework, чтобы [сгенерировать прокси-классы](https://docs.microsoft.com/en-us/dotnet/framework/data/wcf/how-to-manually-generate-client-data-service-classes-wcf-data-services) для сущностей сервиса.
 
 ```
 "%windir%\Microsoft.NET\Framework\v3.5\DataSvcUtil.exe" /dataservicecollection /in:northwind-data-service.edmx /out:NorthwindDataService3.cs
