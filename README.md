@@ -117,8 +117,8 @@ https://services.odata.org/V3/Northwind/Northwind.svc/
 
 Visual Studio имеет функциональность [Add Service Reference](https://docs.microsoft.com/en-us/visualstudio/data-tools/how-to-add-update-or-remove-a-wcf-data-service-reference?view=vs-2019), с помощью которой можно сгенерировать [прокси-классы для клиента](https://docs.microsoft.com/ru-ru/dotnet/framework/wcf/how-to-create-a-wcf-client). Однако в версиях 2017 и выше эта функциональность может работать некорректно.
 
-1. Получите метаданные [сервиса v3](https://services.odata.org/V3/Northwind/Northwind.svc/) и сохраните метаданные в файл _northwind-data-service.edmx_.
-2. Замените в файле версию сервиса с 1.0 на 3.0, чтобы получить:
+1. Используя Postman, получите метаданные [сервиса v3](https://services.odata.org/V3/Northwind/Northwind.svc/) и сохраните их в файл _northwind-data-service.edmx_.
+2. Замените в файле версию сервиса с 1.0 на 3.0, чтобы код метаданных выглядел следующим образом:
 
 ```
 edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0"
@@ -140,7 +140,7 @@ edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0"
 
 Используйте утилиту DataSvcUtil снова, но на этот раз укажите номер версии 2.0. Какая возникла ошибка?
 
-(Несмотря на то, что сервис Northwind OData реализует версию протокола 3.0, он отдает метаданные в формате версии 1.0, поэтому потребовалась замена версии в пункте 2.)
+(Несмотря на то, что сервис Northwind OData реализует версию протокола 3.0, он отдает метаданные в формате версии 1.0. Поэтому, чтобы продемонстрировать ограничения версии утилиты DataSvcUtil, потребовалась замена версии в пункте 2.)
 
 5. Установите [WCF Data Services 5.6.3](https://www.microsoft.com/en-us/download/details.aspx?id=45308), найдите DataSvcUtil на диске (C:\Program Files (x86)\Microsoft WCF Data Services). Узнайте, какие версии формата метаданных поддерживает эта версия утилиты.
 6. Используйте DataSvcUtil версии 5.6.3 с указанием версии метаданных 3.0. После этого на диске должен появиться файл _NorthwindDataService.cs_.
