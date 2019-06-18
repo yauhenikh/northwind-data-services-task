@@ -144,16 +144,16 @@ edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0"
 
 5. Установите [WCF Data Services 5.6.3](https://www.microsoft.com/en-us/download/details.aspx?id=45308), найдите DataSvcUtil на диске (C:\Program Files (x86)\Microsoft WCF Data Services). Узнайте, какие версии формата метаданных поддерживает эта версия утилиты.
 6. Используйте DataSvcUtil версии 5.6.3 с указанием версии метаданных 3.0. После этого на диске должен появиться файл _NorthwindDataService.cs_.
-7. Создайте клиента для сервиса для приложения .NET Framework.
+7. Создайте .NET Framework приложение, которое будет работать клиентом сервиса Northwind OData.
     * Создайте консольное приложение .NET Framework.
-    * Скопируйте файл _NorthwindDataService.cs_ в папку проекта и добавьте его в проект.
-    * Добавьте сборки версии 5.6.3 из папки пакета WCF Data Services 5.6.3:
+    * Скопируйте файл _NorthwindDataService.cs_ в папку проекта и добавьте скопированный файл в проект.
+    * Добавьте сборки версии 5.6.3 из папки пакета WCF Data Services 5.6.3 (папка .NETFramework):
         * Microsoft.Data.Edm
         * Microsoft.Data.OData
         * Microsoft.Data.Services
         * Microsoft.Data.Services.Client
-    * Соберите проект. В случае возникновения ошибок, проверьте версию сборок.
-    * Добавьте следующий код, соберите проект и запустите его.
+    * Соберите проект. В случае ошибок, проверьте версию сборок.
+    * Добавьте код из примера ниже, соберите проект и запустите его:
 
 ```cs
 NorthwindModel.NorthwindEntities entities = new NorthwindModel.NorthwindEntities(new Uri("https://services.odata.org/V3/Northwind/Northwind.svc"));
@@ -166,6 +166,12 @@ Console.WriteLine("{0} customers in the service found.", customers.Length);
 ```
 20 customers in the service found.
 ```
+
+8. Найдите базовый класс, от которого унаследован _NorthwindModel.NorthwindEntities_. 
+    * В какой сборке находится базовый класс?
+    * По какому пути лежит эта сборка?
+    * Какая версия у нее версия?
+    * Найдите документацию для этого класса на портале [docs.microsoft.com](https://docs.microsoft.com/).
 
 Базовый клиент готов.
 
