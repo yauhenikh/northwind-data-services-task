@@ -63,10 +63,10 @@
 1. Изучите основы протокола HTTP - структуру, основные методы (GET, POST, PUT, DELETE), коды состояния, заголовки. Используйте статьи ["Обзор протокола HTTP"](https://developer.mozilla.org/ru/docs/Web/HTTP/Overview) и ["Простым языком об HTTP"](https://habr.com/ru/post/215117/) в качестве обучающего материала, и [статью в википедии](https://ru.wikipedia.org/wiki/HTTP) в качестве справочика.
 2. Научитесь использовать Postman, инструмент для работы с HTTP-сервисами и REST API.
     * Установите [Postman](https://www.getpostman.com/downloads/).
-    * Освойте базовые сценарии работы c Postman. Можно использовать примеры из видео ("[Postman: от простого API-теста до конечного сценария"](https://www.youtube.com/watch?v=hGmJMeE_ok0)).
-    * Используйте руководство ["Learning OData on Postman"](https://www.odata.org/getting-started/learning-odata-on-postman/), чтобы добавить коллекцию URL OData-сервиса в Postman.
+    * Освойте базовые сценарии работы c Postman. Можно использовать примеры из видео "[Postman: от простого API-теста до конечного сценария"](https://www.youtube.com/watch?v=hGmJMeE_ok0).
+    * Используйте руководство ["Learning OData on Postman"](https://www.odata.org/getting-started/learning-odata-on-postman/), чтобы добавить в Postman коллекцию с готовыми URL.
     * Пройдите ["Basic Tutorial](https://www.odata.org/getting-started/basic-tutorial).
-3. Создайте в Postman новую коллекцию с именем Northwind, в этой коллекции создайте такие запросы к Northwind OData Service, котоыре будут удовлетворять описанию из таблицы ниже. После проверки запроса, занесите необходимые параметры в таблицу:
+3. Создайте в Postman новую коллекцию с именем Northwind, в этой коллекции создайте такие запросы к [Northwind OData Service](https://services.odata.org/V2/Northwind/Northwind.svc/), котоыре будут удовлетворять описанию из таблицы ниже. После проверки запроса, занесите необходимые параметры в таблицу:
 
 | Query Description                                                 | HTTP Verb | Url                        |
 | ----------------------------------------------------------------- | --------- | -------------------------- |
@@ -84,9 +84,91 @@ TODO: Add more queries here or use Postman collection?
 #### Дополнительные материалы
 
 * OData REST API — мелкие хитрости ([часть 1](https://habr.com/ru/company/databoom/blog/262937/), [часть 2](https://habr.com/ru/company/databoom/blog/263167/), [часть 3](https://habr.com/ru/company/databoom/blog/263435/))
+* [What’s New with OData 4: OData 2 vs OData 4](https://www.progress.com/blogs/whats-new-with-odata-4-odata-2-vs-odata-4)
 
 
-### WCF Client
+### Создание клиента для Northwind OData Service
+
+Протокол OData имеет несколько версий (на текущий момент 4), версии 1, 2 и 3 являются обратно совместимыми, но версия 4 не является обратно совместимой. Работа с сервисами разных версий отличается с точки зрения реализации клиента. Также отличается работа с сервисами на разных платформах - .NET Framework и .NET Core. Поэтому в зависимости от версии сервиса и платформы подход к работе с сервисами OData может значительно отличаться.
+
+Документация протокола OData
+* [OData Version 3.0](https://www.odata.org/documentation/odata-version-3-0/)
+* [OData Version 4.0](https://www.odata.org/documentation/odata-version-4-0/)
+
+
+#### Сервисы WCF
+
+[WCF](https://docs.microsoft.com/en-us/dotnet/framework/wcf/) - это фреймворк, который в прошлом широко использовался для [построения распределенных приложений](http://sergeyteplyakov.blogspot.com/2011/02/wcf.html) на базе платформы .NET. Существует много рабочих приложений, которые построены на его основе и успешно работают длительное время. На текущий момент [популярность фреймворка сильно упала](https://github.com/dotnet/wcf/issues/1784), новые сервисы на WCF не разрабатываются, однако поддержка работающих сервисов и работа с ними по-прежнему является актуальной задачей для крупных промышленных программных систем.
+
+Url сервиса выглядит следующим образом:
+
+```
+https://services.odata.org/V2/Northwind/Northwind.svc/
+```
+
+[Наличие ".svc" в пути сервиса](https://stackoverflow.com/questions/17363429/does-a-wcf-service-always-use-an-svc-file) намекает на то, что сервис построен с использованием WCF.
+
+
+#### Создание клиента сервиса OData v3 для приложения .NET Framework
+
+Работать с сервисом OData можно с помощью вызовов HTTP-методов, однако обычно для связи с сервисом используются прокси-классы, которые генерируются автоматически с помощью [дополнительного инструментария](https://docs.microsoft.com/en-us/dotnet/framework/data/wcf/generating-the-data-service-client-library-wcf-data-services). Кодогенерация значительно упрощает написание клиента и снижает количество кода, которое требуется для полноценной работы с сервисом, а также снижает количество ошибок, которые может допустить разработчик.
+
+Visual Studio имеет функциональность [Add Service Reference](https://docs.microsoft.com/en-us/visualstudio/data-tools/how-to-add-update-or-remove-a-wcf-data-service-reference?view=vs-2019), с помощью которой можно сгенерировать [прокси-классы для клиента](https://docs.microsoft.com/ru-ru/dotnet/framework/wcf/how-to-create-a-wcf-client). Однако в версиях 2017 и выше эта функциональность может работать некорректно.
+
+1. Получите метаданные [сервиса v3](https://services.odata.org/V3/Northwind/Northwind.svc/) и сохраните метаданные в файл _northwind-data-service.edmx_.
+2. Замените в файле версию сервиса с 1.0 на 3.0, чтобы получить:
+
+```
+edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0"
+```
+
+3. Используйте утилиту [DataSvcUtil](https://docs.microsoft.com/en-us/dotnet/framework/data/wcf/wcf-data-service-client-utility-datasvcutil-exe), чтобы [сгенерировать прокси-классы](https://docs.microsoft.com/en-us/dotnet/framework/data/wcf/how-to-manually-generate-client-data-service-classes-wcf-data-services) для сущностей сервиса.
+
+```
+"%windir%\Microsoft.NET\Framework\v3.5\DataSvcUtil.exe" /dataservicecollection /in:northwind-data-service.edmx /out:NorthwindDataService3.cs
+```
+
+Какая возникла ошибка?
+
+4. Узнайте, какие версии поддерживает DataSvcUtil:
+
+```
+"%windir%\Microsoft.NET\Framework\v3.5\DataSvcUtil.exe" /?
+```
+
+Используйте утилиту DataSvcUtil снова, но на этот раз укажите номер версии 2.0. Какая возникла ошибка?
+
+Несмотря на то, что сервис Northwind OData реализует версию протокола 3.0, он отдает метаданные в формате версии 1.0, поэтому потребовалась замена версии в пункте 2.
+
+5. Установите [WCF Data Services 5.6.3](https://www.microsoft.com/en-us/download/details.aspx?id=45308), найдите DataSvcUtil на диске (C:\Program Files (x86)\Microsoft WCF Data Services). Узнайте, какие версии поддерживает эта версия утилиты.
+6. Используйте DataSvcUtil версии 5.6.3 с указанием версии 3.0, на диске должен появиться файл _NorthwindDataService.cs_.
+7. Создайте клиента для сервиса для приложения .NET Framework.
+    * Создайте консольное приложение .NET Framework.
+    * Скопируйте файл _NorthwindDataService.cs_ в папку проекта и добавьте его в проект.
+    * Добавьте сборки версии 5.6.3 из папки пакета WCF Data Services 5.6.3:
+        * Microsoft.Data.Edm
+        * Microsoft.Data.OData
+        * Microsoft.Data.Services
+        * Microsoft.Data.Services.Client
+    * Соберите проект. В случае возникновения ошибок, проверьте версию сборок.
+    * Добавьте следующий код, соберите проект и запустите его.
+
+```cs
+NorthwindModel.NorthwindEntities entities = new NorthwindModel.NorthwindEntities(new Uri("https://services.odata.org/V3/Northwind/Northwind.svc"));
+var customers = entities.Customers.ToArray();
+Console.WriteLine("{0} customers in the service found.", customers.Length);
+```
+
+Программа должна вернуть:
+
+```
+20 customers in the service found.
+```
+
+Базовый клиент готов.
+
+
+#### Создание клиента сервиса OData v4 для приложения .NET Core
 
 
 ### REST API
