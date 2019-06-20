@@ -130,20 +130,37 @@ edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0"
 "%windir%\Microsoft.NET\Framework\v3.5\DataSvcUtil.exe" /dataservicecollection /in:northwind-data-service.edmx /out:NorthwindDataService3.cs
 ```
 
-Какая возникла ошибка? (ошибка 7007: Путь "northwind-data-service.edmx", указанный в аргументе "in", не является допустимым файлом или каталогом.)
+Какая возникла ошибка?
+```
+ошибка 7007: Путь "northwind-data-service.edmx", указанный в аргументе "in", не является допустимым файлом или каталогом.
+```
 
-4. Узнайте, какие версии поддерживает DataSvcUtil: (/Version:1.0 - прием CSDL-документов, помеченных как m:DataServiceVersion=1.0 или ниже, /Version:2.0 - прием CSDL-документов, помеченных как m:DataServiceVersion=2.0 или ниже)
+4. Узнайте, какие версии поддерживает DataSvcUtil:
+
+```
+/Version:1.0             Прием CSDL-документов, помеченных как m:DataServiceVersion=1.0 или ниже
+/Version:2.0             Прием CSDL-документов, помеченных как m:DataServiceVersion=2.0 или ниже
+```
 
 ```
 "%windir%\Microsoft.NET\Framework\v3.5\DataSvcUtil.exe" /?
 ```
 
 Используйте утилиту DataSvcUtil снова, но на этот раз укажите номер версии 2.0. Какая возникла ошибка?
-(ошибка 7007: Путь "northwind-data-service.edmx", указанный в аргументе "in", не является допустимым файлом или каталогом.)
+
+```
+ошибка 7007: Путь "northwind-data-service.edmx", указанный в аргументе "in", не является допустимым файлом или каталогом.
+```
 
 (Несмотря на то, что сервис Northwind OData реализует версию протокола 3.0, он отдает метаданные в формате версии 1.0. Поэтому, чтобы продемонстрировать ограничения версии утилиты DataSvcUtil, потребовалась замена версии в пункте 2.)
 
 5. Установите [WCF Data Services 5.6.3](https://www.microsoft.com/en-us/download/details.aspx?id=45308), найдите DataSvcUtil на диске (C:\Program Files (x86)\Microsoft WCF Data Services). Узнайте, какие версии формата метаданных поддерживает эта версия утилиты.
+
+```
+/version:1.0             Прием CSDL-документов, помеченных как m:DataServiceVersion=1.0 или ниже
+/version:2.0             Прием CSDL-документов, помеченных как m:DataServiceVersion=2.0 или ниже
+/version:3.0             Принимать CSDL-документы, помеченные тегом m:DataServiceVersion=3.0 или более ранней версии
+```
 6. Используйте DataSvcUtil версии 5.6.3 с указанием версии метаданных 3.0. После этого на диске должен появиться файл _NorthwindDataService.cs_.
 7. Создайте .NET Framework приложение, которое будет работать клиентом сервиса Northwind OData.
     * Создайте консольное приложение .NET Framework.
