@@ -130,7 +130,7 @@ edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0"
 "%windir%\Microsoft.NET\Framework\v3.5\DataSvcUtil.exe" /dataservicecollection /in:northwind-data-service.edmx /out:NorthwindDataService3.cs
 ```
 
-Какая возникла ошибка?
+Какая возникла ошибка? (ошибка 7007: Путь "northwind-data-service.edmx", указанный в аргументе "in", не является допустимым файлом или каталогом.)
 
 4. Узнайте, какие версии поддерживает DataSvcUtil:
 
