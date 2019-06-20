@@ -132,7 +132,7 @@ edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0"
 
 Какая возникла ошибка? (ошибка 7007: Путь "northwind-data-service.edmx", указанный в аргументе "in", не является допустимым файлом или каталогом.)
 
-4. Узнайте, какие версии поддерживает DataSvcUtil:
+4. Узнайте, какие версии поддерживает DataSvcUtil: (/Version:1.0 - прием CSDL-документов, помеченных как m:DataServiceVersion=1.0 или ниже, /Version:2.0 - прием CSDL-документов, помеченных как m:DataServiceVersion=2.0 или ниже)
 
 ```
 "%windir%\Microsoft.NET\Framework\v3.5\DataSvcUtil.exe" /?
