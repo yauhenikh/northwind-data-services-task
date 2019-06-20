@@ -199,6 +199,7 @@ Console.WriteLine("{0} customers in the service found.", customers.Length);
     Version=5.6.3.0
     ```
     * Найдите документацию для этого класса на портале [docs.microsoft.com](https://docs.microsoft.com/).
+    [Ссылка на документацию](https://docs.microsoft.com/en-us/previous-versions/dotnet/wcf-data-services/cc679618%28v%3dvs.103%29)
 
 Базовый клиент готов.
 
