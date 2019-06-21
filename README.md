@@ -216,10 +216,9 @@ Console.WriteLine("{0} customers in the service found.", customers.Length);
     * Microsoft.Data.Services.Client.dll
 4. Добавьте код предыдущего приложения, соберите проект, запустите приложение. Какая возникла ошибка и почему?
 
-```
 System.NotSupportedException: 'Требуемая версия .NET Framework не позволяет непосредственно производить перечисление по запросу службы передачи данных. Это связано с тем, что при перечислении службе передачи данных автоматически направляется синхронный запрос. Так как эта версия .NET Framework поддерживает только асинхронные операции, вместо этого необходимо вызвать методы BeginExecute и EndExecute, позволяющие получить результат запроса, который поддерживает перечисление.'
-```
-As mentioned in the error message, the platform only supports asynchronous fetches. Even after you use that, you will likely need to enumerate over the results multiple times -- everytime you perform a ToList(), FirstOrDefault() or other similar System.Generics.Collections operations, you are essentially getting the Enumerator of the collection and enumerating over it.
+
+As mentioned in the error message, the platform only supports asynchronous fetches.
 
 5. Примените [подход APM](https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/asynchronous-programming-model-apm), чтобы сделать вызов к сервису асинхронным:
 
